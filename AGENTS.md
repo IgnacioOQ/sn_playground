@@ -114,9 +114,16 @@ sn_playground/
 │       └── *.css            # Premium dark theme
 ├── data/
 │   └── sessions/            # JSON files for each completed game
+├── AI_AGENTS/               # Documentation for AI assistants
+│   ├── PROJECT_SETUP.md     # Required 6-part project structure
+│   ├── REACT_ASSISTANT.md   # React + FastAPI setup guide
+│   ├── Student_Instructions.md  # Human-readable guide
+│   └── UI_DESIGN_ASSISTANT.md   # UI/UX guidelines
 ├── tests/
 │   ├── test_environment.py  # Payoff calculation tests
 │   └── test_agents.py       # Agent behavior tests (20 tests)
+├── notebooks/               # Jupyter notebooks for Google Colab
+│   └── README.md
 └── requirements.txt         # fastapi, uvicorn, pydantic
 ```
 
