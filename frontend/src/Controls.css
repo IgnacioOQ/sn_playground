@@ -1,0 +1,429 @@
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Config Card */
+.config-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.config-card h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.config-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.config-field label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.config-field input,
+.config-field select {
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.config-field input:focus,
+.config-field select:focus {
+    outline: none;
+    border-color: var(--accent-neutral);
+}
+
+/* Buttons */
+.btn-primary {
+    padding: 1rem 2rem;
+    background: var(--gradient-coop);
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-coop);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: center;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Info Card */
+.info-card {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.payoff-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.payoff-list li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.payoff-list .coop {
+    color: var(--accent-cooperate);
+}
+
+.payoff-list .defect {
+    color: var(--accent-defect);
+}
+
+.payoff-list .mixed {
+    color: var(--accent-neutral);
+}
+
+/* Score Panel */
+.score-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.score-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: var(--bg-card);
+    border-radius: 16px;
+    min-width: 120px;
+}
+
+.score-card.you {
+    border: 2px solid var(--accent-cooperate);
+}
+
+.score-card.agent {
+    border: 2px solid var(--accent-defect);
+}
+
+.score-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.score-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.vs {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Round Info */
+.round-info {
+    text-align: center;
+}
+
+.round-number {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-coop);
+    transition: width 0.3s ease;
+}
+
+/* Agent Action Card */
+.agent-action-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.action-label {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.action-reveal {
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.action-reveal.cooperate {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--accent-cooperate);
+    animation: pulse-coop 2s infinite;
+}
+
+.action-reveal.defect {
+    background: rgba(255, 68, 102, 0.1);
+    color: var(--accent-defect);
+    animation: pulse-defect 2s infinite;
+}
+
+@keyframes pulse-coop {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px 5px rgba(0, 255, 136, 0.2);
+    }
+}
+
+@keyframes pulse-defect {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 68, 102, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px 5px rgba(255, 68, 102, 0.2);
+    }
+}
+
+/* Choice Section */
+.choice-section {
+    text-align: center;
+}
+
+.choice-prompt {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 3rem;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.choice-btn.cooperate {
+    background: var(--gradient-coop);
+    color: #000;
+}
+
+.choice-btn.defect {
+    background: var(--gradient-defect);
+    color: #fff;
+}
+
+.choice-btn:hover:not(:disabled) {
+    transform: translateY(-4px);
+}
+
+.choice-btn.cooperate:hover:not(:disabled) {
+    box-shadow: var(--shadow-glow-coop);
+}
+
+.choice-btn.defect:hover:not(:disabled) {
+    box-shadow: var(--shadow-glow-defect);
+}
+
+.choice-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.choice-icon {
+    font-size: 2rem;
+}
+
+.choice-text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Game Over Card */
+.game-over-card {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.game-over-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.final-result {
+    margin-bottom: 1rem;
+}
+
+.winner {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.winner.you-won {
+    color: var(--accent-cooperate);
+}
+
+.winner.agent-won {
+    color: var(--accent-defect);
+}
+
+.winner.tie {
+    color: var(--accent-neutral);
+}
+
+.final-scores {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* History Card */
+.history-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.history-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.history-table th {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-table td {
+    color: var(--text-primary);
+}
+
+.history-table td.cooperate {
+    color: var(--accent-cooperate);
+}
+
+.history-table td.defect {
+    color: var(--accent-defect);
+}
+
+.history-table td.points {
+    font-weight: 600;
+}
+
+.history-table tbody tr {
+    transition: background 0.2s;
+}
+
+.history-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Error Message */
+.error-message {
+    color: var(--accent-defect);
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 68, 102, 0.1);
+    border-radius: 8px;
+}
