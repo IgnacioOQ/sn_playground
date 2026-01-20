@@ -1,0 +1,116 @@
+{
+  "session_id": "43f90a3a-bfd1-42d7-9680-ab497aa1ac14",
+  "timestamp": "2026-01-20T16:41:16.458761+01:00",
+  "metadata": {
+    "agent_name": "TitForTat",
+    "agent_type": "tit_for_tat",
+    "num_rounds": 10
+  },
+  "config": {
+    "num_rounds": 10,
+    "agent_type": "tit_for_tat",
+    "payoffs": {
+      "temptation": 5,
+      "reward": 3,
+      "punishment": 1,
+      "sucker": 0
+    }
+  },
+  "final_scores": {
+    "human": 27,
+    "agent": 22
+  },
+  "winner": "human",
+  "steps": [
+    {
+      "step": 0,
+      "human_action": "cooperate",
+      "agent_action": "cooperate",
+      "outcome_human": 3,
+      "outcome_agent": 3,
+      "next_step": 1,
+      "done": false
+    },
+    {
+      "step": 1,
+      "human_action": "cooperate",
+      "agent_action": "cooperate",
+      "outcome_human": 3,
+      "outcome_agent": 3,
+      "next_step": 2,
+      "done": false
+    },
+    {
+      "step": 2,
+      "human_action": "cooperate",
+      "agent_action": "cooperate",
+      "outcome_human": 3,
+      "outcome_agent": 3,
+      "next_step": 3,
+      "done": false
+    },
+    {
+      "step": 3,
+      "human_action": "defect",
+      "agent_action": "cooperate",
+      "outcome_human": 5,
+      "outcome_agent": 0,
+      "next_step": 4,
+      "done": false
+    },
+    {
+      "step": 4,
+      "human_action": "cooperate",
+      "agent_action": "defect",
+      "outcome_human": 0,
+      "outcome_agent": 5,
+      "next_step": 5,
+      "done": false
+    },
+    {
+      "step": 5,
+      "human_action": "cooperate",
+      "agent_action": "cooperate",
+      "outcome_human": 3,
+      "outcome_agent": 3,
+      "next_step": 6,
+      "done": false
+    },
+    {
+      "step": 6,
+      "human_action": "cooperate",
+      "agent_action": "cooperate",
+      "outcome_human": 3,
+      "outcome_agent": 3,
+      "next_step": 7,
+      "done": false
+    },
+    {
+      "step": 7,
+      "human_action": "defect",
+      "agent_action": "cooperate",
+      "outcome_human": 5,
+      "outcome_agent": 0,
+      "next_step": 8,
+      "done": false
+    },
+    {
+      "step": 8,
+      "human_action": "defect",
+      "agent_action": "defect",
+      "outcome_human": 1,
+      "outcome_agent": 1,
+      "next_step": 9,
+      "done": false
+    },
+    {
+      "step": 9,
+      "human_action": "defect",
+      "agent_action": "defect",
+      "outcome_human": 1,
+      "outcome_agent": 1,
+      "next_step": 10,
+      "done": true
+    }
+  ]
+}
