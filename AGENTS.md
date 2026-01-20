@@ -54,59 +54,94 @@ If you want to teach an agent a new language (like JAX) or technique:
 ## LOCAL PROJECT DESCRIPTION
 
 ### Project Overview
+**Iterated Prisoners Dilemma Simulation** - A web-based game where human subjects play against AI agents in the classic iterated prisoners dilemma. The backend handles all game logic and agent strategies, while the frontend provides a premium dark-themed UI for human interaction.
 
 ### Setup & Testing
-*   **Install Dependencies:**
-*   **Run Backend:** 
-*   **Run Frontend:** 
-*   **Run Tests:** 
+*   **Install Dependencies:** `pip install -r requirements.txt` (backend) and `cd frontend && npm install` (frontend)
+*   **Run Backend:** `python -m uvicorn backend.api.main:app --reload --port 8000`
+*   **Run Frontend:** `cd frontend && npm run dev`
+*   **Run Tests:** `python -m pytest tests/ -v`
 
 ### Key Architecture & Logic
 
 #### 1. Architecture (Monorepo)
-*   **Backend (`backend/`)**: Python/FastAPI application handling all simulation logic, agent training, and state management.
-*   **Frontend (`frontend/`)**: React/Vite application for the user interface, communicating with backend via REST API.
+*   **Backend (`backend/`)**: Python/FastAPI application handling all game logic, agent strategies, and session data logging.
+*   **Frontend (`frontend/`)**: React/Vite/TypeScript application for the user interface, communicating with backend via REST API.
 
-#### 2. Agents
-*   **`backend/environment.py`**: The environment logic (p generation, reward calculation).
-*   **`backend/agents.py`**: The Deep Q-Learning (DQN) agent implementation using PyTorch.
+#### 2. Game Logic
+*   **Payoff Matrix (Classic PD):**
+    *   Both Cooperate: R=3, R=3
+    *   Both Defect: P=1, P=1
+    *   One Defects: T=5 (defector), S=0 (cooperator)
+*   **Constraints:** T > R > P > S and 2R > T + S
 
-#### 3. Simulation Loop (`backend/simulation.py`)
+#### 3. Agents (`backend/agents.py`)
+*   **`TitForTatAgent`**: Cooperates first, then mirrors opponent's last action
+*   **`AlwaysCooperateAgent`**: Always cooperates
+*   **`AlwaysDefectAgent`**: Always defects
+*   **`RandomAgent`**: Randomly chooses
+
+#### 4. Simulation Loop
 *   **Step:**
-    1.  Environment generates p.
-    2.  Agents observe p and output actions (Recommend/Not Recommend).
-    3.  Human (via React Interface) observes Agent actions and selects one.
-    4.  Environment calculates outcome (Coin flip) and rewards.
-    5.  Agents update their replay buffers and perform a training step.
+    1.  Game initializes; agent pre-selects action for round 1
+    2.  Frontend displays agent's action
+    3.  Human selects Cooperate or Defect
+    4.  Backend calculates payoffs and updates scores
+    5.  Agent observes human action and prepares next round
+    6.  After final round (default: 10), session data saved to JSON
 
 ### Key Files and Directories
 
 #### Directory Structure
-*   `backend/`: Contains the core Python logic (formerly `src/`).
-    *   `api/`: FastAPI routes and session management.
-    *   `engine/`: Pydantic models and simulation engine.
-    *   `agents.py`: DQN Agent class.
-    *   `environment.py`: BanditEnvironment class.
-    *   `simulation.py`: GameSession class for legacy/notebook use.
-*   `frontend/`: Contains the React application.
-    *   `src/Controls.tsx`: Main game component.
-    *   `src/App.tsx`: App entry with health check.
-*   `tests/`: Contains unit tests.
-*   `notebooks/`: Contains the legacy notebook interface.
-    *   `experiment_interface.ipynb`: Interactive game (notebook version).
+```
+sn_playground/
+├── backend/
+│   ├── api/
+│   │   ├── main.py          # FastAPI app with CORS
+│   │   ├── routes.py        # /health, /simulation/init, /simulation/step
+│   │   └── session.py       # In-memory session storage
+│   ├── engine/
+│   │   ├── config.py        # SimulationConfig (num_rounds, agent_type)
+│   │   ├── state.py         # GameState, RoundResult Pydantic models
+│   │   └── model.py         # GameSession orchestrator
+│   ├── agents.py            # TitForTat, AlwaysCooperate, AlwaysDefect, Random
+│   ├── environment.py       # PayoffMatrix, payoff calculation
+│   └── logging.py           # Session data export to JSON
+├── frontend/
+│   └── src/
+│       ├── App.tsx          # Health check + root component
+│       ├── Controls.tsx     # Game UI (config, actions, history)
+│       └── *.css            # Premium dark theme
+├── data/
+│   └── sessions/            # JSON files for each completed game
+├── tests/
+│   ├── test_environment.py  # Payoff calculation tests
+│   └── test_agents.py       # Agent behavior tests (20 tests)
+└── requirements.txt         # fastapi, uvicorn, pydantic
+```
 
 #### File Dependencies & Logic
-`backend/simulation.py` depends on `backend/agents.py` and `backend/environment.py`.
-The React frontend depends on the FastAPI backend running on port 8000.
+*   `backend/engine/model.py` depends on `agents.py`, `environment.py`, and `logging.py`
+*   `backend/api/routes.py` depends on `engine/model.py` and `api/session.py`
+*   React frontend depends on FastAPI backend running on port 8000
 
-**Legacy/Reference Implementation:**
-No legacy, project starts from scratch.
-
-**Vectorized Implementation (Fast):**
-The DQN agents process the state `p` as a tensor. Training batches are processed in parallel using PyTorch.
-
-**User Interface:**
-The interface is provided via `ipywidgets` in `notebooks/experiment_interface.ipynb`, allowing the human subject to see recommendations and make choices.
+#### Data Logging
+Session data is automatically saved to `data/sessions/{session_id}.json` when a game ends. Format:
+```json
+{
+  "session_id": "uuid",
+  "timestamp": "ISO-8601",
+  "metadata": { "agent_name": "TitForTat", ... },
+  "final_scores": { "human": 25, "agent": 22 },
+  "steps": [
+    { "step": 0, "human_action": "cooperate", "agent_action": "cooperate", 
+      "outcome_human": 3, "outcome_agent": 3, "next_step": 1, "done": false },
+    ...
+  ]
+}
+```
 
 **Testing & Verification:**
-*   **`tests/test_mechanics.py`**: Verifies reward logic, buffer operations, and basic agent behavior.
+*   **`tests/test_environment.py`**: Verifies payoff calculations for all action combinations
+*   **`tests/test_agents.py`**: Verifies TitForTat mirrors correctly, other agent behaviors
+
